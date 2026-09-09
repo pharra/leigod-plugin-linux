@@ -25,11 +25,10 @@ RUN chmod +x /workspace/install.sh /workspace/uninstall.sh \
     /workspace/opt/leigod/leigod_uninstall.sh \
     && mkdir -p /opt/leigod /home /tmp/acc/log /etc/systemd/system/default.target.wants \
     && cd /workspace \
-    && LEIGOD_INSTALLED_IN_CONTAINER=1 ./install.sh \
-    && ln -sf /etc/systemd/system/leigod_plugin.service /etc/systemd/system/default.target.wants/leigod_plugin.service
+    && LEIGOD_INSTALLED_IN_CONTAINER=1 ./install.sh
 
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-CMD ["systemd"]
+CMD ["/opt/leigod/steamdeck_acc_monitor.sh"]
